@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Percentage Calculator – X% of Y &amp; % Change</title>
+<meta name="description" content="Free percentage calculator: find X% of Y, what percent X is of Y, and percentage increase or decrease between two numbers — with steps shown.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Finance / Percentage Calculator</nav>
+<div class="tool-head"><h1>Percentage Calculator</h1><p class="lead">Solve X% of Y, X as a percent of Y, and % change between any two values.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="pmode">Calculation mode</label><select id="pmode"><option value="pctof" selected>X% of Y</option><option value="whatpct">X is what % of Y</option><option value="pctchange">% change from X to Y</option></select></div>
+  <div class="field"><label for="px" id="plabelX">Percentage (X)</label><input id="px" type="number" step="any" value="20"></div>
+  <div class="field"><label for="py" id="plabelY">Of value (Y)</label><input id="py" type="number" step="any" value="250"></div>
+</div>
+<button class="btn" id="pcalc" type="button">Calculate</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Percentages show up everywhere — discounts during a sale, GST on a bill, marks in an exam, or a salary hike. This tool handles the three calculations people need most: finding X% of a number, working out what percentage one number is of another, and measuring the percentage change between two values.</p>
+<p>Pick a mode, enter the two numbers and get the answer instantly. It is handy for shoppers checking discount prices, students converting marks, and anyone comparing prices, salaries or investment returns over time.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>How do I find X% of Y?</summary><div class="a">Multiply: (X / 100) x Y. For example, 20% of 250 is (20 / 100) x 250 = 50.</div></details>
+<details><summary>How do I calculate percentage increase or decrease?</summary><div class="a">Use ((New - Old) / Old) x 100. Going from 100 to 130 is a 30% increase; going from 100 to 80 is a 20% decrease.</div></details>
+<details><summary>What is the difference between percentage points and percent?</summary><div class="a">If interest rises from 5% to 7%, that is a 2 percentage-point rise but a 40% relative increase. Mixing the two up is one of the most common percentage mistakes.</div></details>
+<details><summary>How do I reverse a percentage — find the original price?</summary><div class="a">If Rs 90 is the price after a 10% discount, divide by (1 - 0.10): 90 / 0.9 = Rs 100. For a markup, divide by (1 + rate).</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="emi-calculator.html" data-name="emi calculator work out your monthly loan emi with total interest and payable amount. finance"><div class="ticon">🏦</div><h3>EMI Calculator</h3><p>Work out your monthly loan EMI with total interest and payable amount.</p><span class="go">Use tool →</span></a>
+<a class="card" href="gst-calculator.html" data-name="gst calculator add or strip indian gst (5–28%) with cgst/sgst split on any bill or price. finance"><div class="ticon">🧾</div><h3>GST Calculator</h3><p>Add or strip Indian GST (5–28%) with CGST/SGST split on any bill or price.</p><span class="go">Use tool →</span></a>
+<a class="card" href="fd-calculator.html" data-name="fd calculator estimate fixed deposit maturity value and interest for any indian bank. finance"><div class="ticon">💰</div><h3>FD Calculator</h3><p>Estimate fixed deposit maturity value and interest for any Indian bank.</p><span class="go">Use tool →</span></a>
+<a class="card" href="rd-calculator.html" data-name="rd calculator project rd maturity value, invested amount and interest earned monthly. finance"><div class="ticon">📈</div><h3>RD Calculator</h3><p>Project RD maturity value, invested amount and interest earned monthly.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function pctOf(x, y) { return x / 100 * y; }
+function whatPct(x, y) { return x / y * 100; }
+function pctChange(x, y) { return (y - x) / x * 100; }
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('pmode').addEventListener('change', function() {
+  var m = FTH.str('pmode');
+  if (m === 'pctof') { FTH.el('plabelX').textContent = 'Percentage (X)'; FTH.el('plabelY').textContent = 'Of value (Y)'; }
+  else if (m === 'whatpct') { FTH.el('plabelX').textContent = 'Value (X)'; FTH.el('plabelY').textContent = 'Total (Y)'; }
+  else { FTH.el('plabelX').textContent = 'Old value (X)'; FTH.el('plabelY').textContent = 'New value (Y)'; }
+});
+FTH.el('pcalc').addEventListener('click', function() {
+  var m = FTH.str('pmode');
+  var x = FTH.num('px');
+  var y = FTH.num('py');
+  var out, note;
+  if (m === 'pctof') { out = pctOf(x, y); note = FTH.fmtIN(x, 2) + '% of ' + FTH.fmtIN(y, 2) + ' = ' + FTH.fmtIN(out, 2); }
+  else if (m === 'whatpct') {
+    if (y === 0) { FTH.setResult('<p class="note">Y cannot be zero for this calculation.</p>'); return; }
+    out = whatPct(x, y); note = FTH.fmtIN(x, 2) + ' is ' + FTH.fmtIN(out, 2) + '% of ' + FTH.fmtIN(y, 2);
+  } else {
+    if (x === 0) { FTH.setResult('<p class="note">X cannot be zero for a percentage change.</p>'); return; }
+    out = pctChange(x, y);
+    var dir = out >= 0 ? 'increase' : 'decrease';
+    note = 'Change from ' + FTH.fmtIN(x, 2) + ' to ' + FTH.fmtIN(y, 2) + ' is a ' + FTH.fmtIN(Math.abs(out), 2) + '% ' + dir;
+  }
+  FTH.setResult('<div class="rbig">' + FTH.fmtIN(out, 2) + '%</div><p class="note">' + note + '.</p>');
+});
+});
+</script>
+</body>
+</html>

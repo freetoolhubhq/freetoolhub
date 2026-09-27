@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator – Check Your Body Mass Index</title>
+<meta name="description" content="Calculate your Body Mass Index instantly with our free BMI calculator. Enter weight and height to get your score, category and healthy range.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / BMI Calculator</nav>
+<div class="tool-head"><h1>BMI Calculator</h1><p class="lead">Check your Body Mass Index in seconds and see your healthy weight range.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="weight">Weight <span class="hint">kilograms</span></label><input type="number" id="weight" value="70" min="1" step="any"></div>
+  <div class="field"><label for="height">Height <span class="hint">centimetres</span></label><input type="number" id="height" value="175" min="1" step="any"></div>
+</div>
+<button class="btn" id="bmigo">Calculate BMI</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Body Mass Index (BMI) is the quickest widely-used way to see whether your weight is in a healthy range for your height. Enter your weight in kilograms and your height in centimetres, and this free calculator instantly shows your BMI score, your category — underweight, normal, overweight or obese — and the weight range considered healthy for your height.</p>
+<p>BMI is a screening tool, not a diagnosis: it does not distinguish muscle from fat, so very muscular people, athletes, pregnant women and older adults should interpret it with care. Use it as a starting point for a conversation with a health professional, not as a final verdict on your health.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>How is BMI calculated?</summary><div class="a">BMI equals weight in kilograms divided by height in metres squared. For example, 70 kg at 175 cm gives 70 / (1.75 x 1.75) = 22.9, which is in the normal range.</div></details>
+<details><summary>What are the BMI categories?</summary><div class="a">Below 18.5 is underweight, 18.5–24.9 is normal weight, 25–29.9 is overweight, and 30 or above is obese. These are the standard World Health Organization cut-offs for adults.</div></details>
+<details><summary>What is a healthy weight for my height?</summary><div class="a">The calculator shows it automatically: we multiply 18.5 and 24.9 by your height in metres squared to give the kilogram range considered healthy for you.</div></details>
+<details><summary>Why might BMI be misleading?</summary><div class="a">Because it ignores body composition. A muscular athlete can have a high BMI without excess fat, while an older adult can have a normal BMI but low muscle mass. A waist measurement adds useful context.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+<a class="card" href="word-counter.html" data-name="word counter count words, characters, sentences and lines live as you type — free tool. everyday"><div class="ticon">🔤</div><h3>Word Counter</h3><p>Count words, characters, sentences and lines live as you type — free tool.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function bmiCalc(kg, cm) {
+  var m = cm / 100;
+  return kg / (m * m);
+}
+function bmiCat(bmi) {
+  if (bmi < 18.5) return "Underweight";
+  if (bmi < 25) return "Normal weight";
+  if (bmi < 30) return "Overweight";
+  return "Obese";
+}
+function bmiRange(cm) {
+  var m = cm / 100;
+  return { low: 18.5 * m * m, high: 24.9 * m * m };
+}
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('bmigo').addEventListener('click', function () {
+  var kg = FTH.num('weight');
+  var cm = FTH.num('height');
+  if (!(kg > 0) || !(cm > 0)) { FTH.setResult('<div class="note">Please enter a valid weight and height.</div>'); return; }
+  var b = bmiCalc(kg, cm);
+  var r = bmiRange(cm);
+  FTH.setResult('<div class="rbig">' + b.toFixed(2) + '</div>' +
+    '<div class="rrow"><span class="k">Category</span><span class="v">' + bmiCat(b) + '</span></div>' +
+    '<div class="note">A healthy BMI for most adults is 18.5 – 24.9, which for ' + cm + ' cm is roughly ' + r.low.toFixed(1) + ' – ' + r.high.toFixed(1) + ' kg.</div>');
+});
+FTH.el('bmigo').click();
+});
+</script>
+</body>
+</html>

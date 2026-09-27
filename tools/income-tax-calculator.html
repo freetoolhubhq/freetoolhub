@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Income Tax Calculator – New Regime FY 2025-26</title>
+<meta name="description" content="Calculate your income tax under India's New Regime for FY 2025-26 (AY 2026-27). Includes Rs 75,000 standard deduction, 87A rebate and marginal relief.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Finance / Income Tax Calculator</nav>
+<div class="tool-head"><h1>Income Tax Calculator</h1><p class="lead">Estimate New Regime income tax for FY 2025-26 with rebate and cess included.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<p class="note"><strong>New Regime</strong> slabs for <strong>FY 2025-26 (AY 2026-27)</strong>. Resident individuals only; surcharge on very high incomes is not included.</p>
+<div class="frow">
+  <div class="field"><label for="tincome">Gross annual income (₹)</label><input id="tincome" type="number" min="0" step="10000" value="1500000"></div>
+  <div class="field"><label for="tsal"><input id="tsal" type="checkbox" checked style="width:auto"> I am salaried (Rs 75,000 standard deduction applies)</label></div>
+</div>
+<button class="btn" id="tcalc" type="button">Calculate Tax</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>This calculator estimates your income tax under India's New Regime for FY 2025-26 (Assessment Year 2026-27) — the default regime for individual taxpayers. The new regime taxes income in seven slabs from nil up to 30%, with no tax at all on taxable income up to Rs 12 lakh thanks to the Section 87A rebate.</p>
+<p>Salaried individuals get a Rs 75,000 standard deduction before slabs are applied, and marginal relief ensures that earning just over Rs 12 lakh does not trigger a disproportionately large tax bill. A 4% health and education cess is added on the final tax. Surcharge on very high incomes is not included here, so treat this as an estimate and verify your actual liability on incometax.gov.in or with a tax professional.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>Which financial year does this calculator use?</summary><div class="a">FY 2025-26 (AY 2026-27) under the New Regime: nil up to Rs 4 lakh, then 5%, 10%, 15%, 20%, 25% and 30% slabs up to and beyond Rs 24 lakh.</div></details>
+<details><summary>What is the Section 87A rebate?</summary><div class="a">If your taxable income is Rs 12 lakh or less, the 87A rebate wipes out your entire slab tax, so you pay zero tax. Salaried taxpayers effectively pay no tax up to Rs 12.75 lakh because of the Rs 75,000 standard deduction.</div></details>
+<details><summary>What is marginal relief?</summary><div class="a">Without it, someone earning Rs 12.1 lakh would suddenly owe over Rs 60,000 in tax. Marginal relief caps the extra tax so you never pay more than the amount by which your income exceeds Rs 12 lakh.</div></details>
+<details><summary>Is surcharge included in this calculation?</summary><div class="a">No. Surcharge on very high incomes (above Rs 50 lakh) is not included — this tool is for resident individuals with ordinary salary or other income. Check incometax.gov.in for the full computation.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="emi-calculator.html" data-name="emi calculator work out your monthly loan emi with total interest and payable amount. finance"><div class="ticon">🏦</div><h3>EMI Calculator</h3><p>Work out your monthly loan EMI with total interest and payable amount.</p><span class="go">Use tool →</span></a>
+<a class="card" href="gst-calculator.html" data-name="gst calculator add or strip indian gst (5–28%) with cgst/sgst split on any bill or price. finance"><div class="ticon">🧾</div><h3>GST Calculator</h3><p>Add or strip Indian GST (5–28%) with CGST/SGST split on any bill or price.</p><span class="go">Use tool →</span></a>
+<a class="card" href="fd-calculator.html" data-name="fd calculator estimate fixed deposit maturity value and interest for any indian bank. finance"><div class="ticon">💰</div><h3>FD Calculator</h3><p>Estimate fixed deposit maturity value and interest for any Indian bank.</p><span class="go">Use tool →</span></a>
+<a class="card" href="rd-calculator.html" data-name="rd calculator project rd maturity value, invested amount and interest earned monthly. finance"><div class="ticon">📈</div><h3>RD Calculator</h3><p>Project RD maturity value, invested amount and interest earned monthly.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function taxNewRegime(grossAnnual, isSalaried) {
+  var taxable = grossAnnual - (isSalaried ? 75000 : 0);
+  if (taxable < 0) taxable = 0;
+  var slabs = [[400000, 0], [800000, 0.05], [1200000, 0.10], [1600000, 0.15], [2000000, 0.20], [2400000, 0.25], [Infinity, 0.30]];
+  var slabTax = 0, prev = 0, k;
+  for (k = 0; k < slabs.length; k++) {
+    var limit = slabs[k][0], rate = slabs[k][1];
+    if (taxable > prev) slabTax += (Math.min(taxable, limit) - prev) * rate;
+    prev = limit;
+  }
+  var rebate = 0, relief = 0, net = slabTax;
+  if (taxable <= 1200000) { rebate = slabTax; net = 0; }
+  else if (slabTax > taxable - 1200000) { relief = slabTax - (taxable - 1200000); net = taxable - 1200000; }
+  var cess = net * 0.04;
+  return { taxable: taxable, slabTax: slabTax, rebate: rebate, relief: relief, cess: cess, total: net + cess };
+}
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('tcalc').addEventListener('click', function() {
+  var gross = FTH.num('tincome');
+  var sal = FTH.el('tsal').checked;
+  var r = taxNewRegime(gross, sal);
+  var html = '<div class="rbig">' + FTH.inr(r.total) + '</div>' +
+    '<div class="rrow"><span class="k">Taxable income</span><span class="v">' + FTH.inr(r.taxable) + '</span></div>' +
+    '<div class="rrow"><span class="k">Slab tax</span><span class="v">' + FTH.inr(r.slabTax) + '</span></div>';
+  if (r.rebate > 0) html += '<div class="rrow"><span class="k">Rebate u/s 87A</span><span class="v">- ' + FTH.inr(r.rebate) + '</span></div>';
+  if (r.relief > 0) html += '<div class="rrow"><span class="k">Marginal relief</span><span class="v">- ' + FTH.inr(r.relief) + '</span></div>';
+  html += '<div class="rrow"><span class="k">Health & education cess (4%)</span><span class="v">' + FTH.inr(r.cess) + '</span></div>' +
+    '<p class="note">New Regime, FY 2025-26 (AY 2026-27), resident individual. Surcharge not included — verify on incometax.gov.in.</p>';
+  FTH.setResult(html);
+});
+});
+</script>
+</body>
+</html>

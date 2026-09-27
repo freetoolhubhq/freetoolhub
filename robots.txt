@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bnaiem67-web.github.io/freetoolhub/sitemap.xml

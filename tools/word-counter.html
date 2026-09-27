@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter – Count Words &amp; Characters Online</title>
+<meta name="description" content="Free online word counter: count words, characters, sentences and lines as you type, with estimated reading time. No sign-up needed.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / Word Counter</nav>
+<div class="tool-head"><h1>Word Counter</h1><p class="lead">Count words, characters, sentences and lines live as you type — free tool.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="field"><label for="wctext">Your text <span class="hint">counts update as you type</span></label><textarea id="wctext" rows="8">The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs!</textarea></div>
+<button class="btn-ghost" id="wcclear">Clear</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Whether you are staying under a social media limit, hitting an essay word count or trimming a draft, you need numbers you can trust. This free word counter updates live as you type: words, characters with and without spaces, sentences, lines, and an estimated reading time based on an average adult reading speed of 200 words per minute.</p>
+<p>Everything runs locally in your browser, so your text is never uploaded — safe for drafts, manuscripts and private notes. There are no length limits and no sign-up; just type or paste and watch the counts update instantly.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What counts as a word?</summary><div class="a">Anything separated by whitespace. A hyphenated compound like ‘well-known’ counts as one word, while ‘well - known’ with spaces counts as three — the same rule most editors and word processors use.</div></details>
+<details><summary>How is reading time estimated?</summary><div class="a">We divide your word count by 200, the widely-cited average adult reading speed for English, and round to one decimal place. Dense or technical text usually takes longer in practice.</div></details>
+<details><summary>How are sentences counted?</summary><div class="a">We split your text on full stops, exclamation marks and question marks, and count the non-empty pieces — so unusual text with lots of abbreviations can inflate the count slightly.</div></details>
+<details><summary>Is my text uploaded anywhere?</summary><div class="a">No. Counting happens entirely with JavaScript in your browser — your words never leave your device.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function countStats(text) {
+  var chars = text.length;
+  var charsNoSpaces = text.replace(/\s/g, "").length;
+  var trimmed = text.trim();
+  var words = trimmed === "" ? 0 : trimmed.split(/\s+/).length;
+  var sentences = text.split(/[.!?]+/).filter(function (s) { return s.trim().length > 0; }).length;
+  var lines = text === "" ? 0 : text.split("\n").length;
+  var readMins = Math.round((words / 200) * 10) / 10;
+  return { chars: chars, charsNoSpaces: charsNoSpaces, words: words, sentences: sentences, lines: lines, readMins: readMins };
+}
+document.addEventListener('DOMContentLoaded', function () {
+function updateWC() {
+  var s = countStats(FTH.el('wctext').value);
+  FTH.setResult('<div class="rbig">' + s.words + ' words</div>' +
+    '<div class="rrow"><span class="k">Characters</span><span class="v">' + s.chars + '</span></div>' +
+    '<div class="rrow"><span class="k">Characters (no spaces)</span><span class="v">' + s.charsNoSpaces + '</span></div>' +
+    '<div class="rrow"><span class="k">Sentences</span><span class="v">' + s.sentences + '</span></div>' +
+    '<div class="rrow"><span class="k">Lines</span><span class="v">' + s.lines + '</span></div>' +
+    '<div class="rrow"><span class="k">Reading time</span><span class="v">' + s.readMins + ' min</span></div>');
+}
+FTH.el('wctext').addEventListener('input', updateWC);
+FTH.el('wcclear').addEventListener('click', function () { FTH.el('wctext').value = ''; updateWC(); FTH.el('wctext').focus(); });
+updateWC();
+});
+</script>
+</body>
+</html>

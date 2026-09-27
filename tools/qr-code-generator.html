@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator – Create QR Codes Free</title>
+<meta name="description" content="Generate free QR codes for links, text and contact details. Pick a size, preview instantly and save the code — no sign-up required.">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / QR Code Generator</nav>
+<div class="tool-head"><h1>QR Code Generator</h1><p class="lead">Turn any link or text into a scannable QR code instantly — free, no sign-up.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="field"><label for="qrtext">Text or URL</label><textarea id="qrtext" rows="3" placeholder="https://example.com">https://example.com</textarea></div>
+<div class="frow">
+  <div class="field"><label for="qrsize">Size</label><select id="qrsize"><option value="200">200 × 200 px</option><option value="300" selected>300 × 300 px</option><option value="400">400 × 400 px</option></select></div>
+</div>
+<button class="btn" id="qrgo">Generate QR Code</button>
+<div class="result" id="result" hidden><div class="qrbox" id="qrbox"></div><div class="note" id="qrnote"></div></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>QR codes are the fastest way to share a link, a Wi-Fi password or contact details: one scan and the phone does the rest. Paste any text or URL below, choose a size, and this free generator renders a crisp, high-contrast QR code you can use on posters, packaging, business cards or slides.</p>
+<p>The code is generated entirely in your browser using a widely-used open-source library — nothing you type is uploaded or stored. For the best scan results, use larger sizes for print and keep some quiet space around the code when you place it in a design.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>Do these QR codes expire?</summary><div class="a">No. A QR code is just a picture of your text or link — it never expires and needs no subscription. Only the destination page itself could change or go offline.</div></details>
+<details><summary>Why does the tool need an internet connection?</summary><div class="a">The QR rendering library loads from a public CDN the first time you use the tool. Once it is loaded, code generation happens fully in your browser.</div></details>
+<details><summary>How do I save the QR code?</summary><div class="a">Right-click (or long-press on mobile) the generated code and choose Save image. For print, pick the 400 px size for sharper output.</div></details>
+<details><summary>Can I use the codes commercially?</summary><div class="a">Yes — QR codes you generate here are free for personal and commercial use, with no watermark.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+<a class="card" href="word-counter.html" data-name="word counter count words, characters, sentences and lines live as you type — free tool. everyday"><div class="ticon">🔤</div><h3>Word Counter</h3><p>Count words, characters, sentences and lines live as you type — free tool.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('qrgo').addEventListener('click', function () {
+  var text = FTH.str('qrtext');
+  var size = parseInt(FTH.el('qrsize').value, 10) || 300;
+  var box = FTH.el('qrbox');
+  var res = FTH.el('result');
+  var note = FTH.el('qrnote');
+  box.innerHTML = '';
+  res.hidden = false;
+  note.textContent = '';
+  if (!text) { box.innerHTML = '<div class="note">Type some text or a URL first.</div>'; return; }
+  if (typeof window.QRCode === 'undefined') { box.innerHTML = '<div class="note">The QR library could not load — this tool needs an internet connection the first time you use it.</div>'; return; }
+  new QRCode(box, { text: text, width: size, height: size, correctLevel: QRCode.CorrectLevel.M });
+  note.textContent = 'Right-click (or long-press on mobile) the code to save it as an image.';
+});
+});
+</script>
+</body>
+</html>

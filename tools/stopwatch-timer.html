@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stopwatch &amp; Timer – Free Online</title>
+<meta name="description" content="Free online stopwatch with lap times and a countdown timer with an alarm beep. Accurate to the hundredth of a second — no download or signup needed.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / Stopwatch &amp; Timer</nav>
+<div class="tool-head"><h1>Stopwatch &amp; Timer</h1><p class="lead">Precise stopwatch with laps, plus a countdown timer with an alarm beep.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <button class="btn" id="tabSw" type="button">Stopwatch</button>
+  <button class="btn-ghost" id="tabCd" type="button">Countdown</button>
+</div>
+<div id="swPane">
+  <div class="sw-display" id="swDisp">00:00.00</div>
+  <div class="sw-btns">
+    <button class="btn" id="swStart" type="button">Start</button>
+    <button class="btn-ghost" id="swLap" type="button">Lap</button>
+    <button class="btn-ghost" id="swReset" type="button">Reset</button>
+  </div>
+  <ol class="laps" id="laps"></ol>
+</div>
+<div id="cdPane" hidden>
+  <div class="frow cols3">
+    <div class="field"><label for="cdMin">Minutes</label><input id="cdMin" type="number" value="5" min="0"></div>
+    <div class="field"><label for="cdSec">Seconds</label><input id="cdSec" type="number" value="0" min="0" max="59"></div>
+    <div class="field"><label>&nbsp;</label><button class="btn" id="cdStart" type="button">Start</button></div>
+  </div>
+  <div class="sw-display" id="cdDisp">05:00.00</div>
+  <div class="sw-btns">
+    <button class="btn-ghost" id="cdReset" type="button">Reset</button>
+  </div>
+  <p class="note">The timer plays a beep when it finishes. Keep the tab open — background tabs may update less often.</p>
+</div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>A stopwatch for timing workouts, cooking, presentations or productivity sprints, and a countdown timer for anything with a deadline — together on one page, accurate to the hundredth of a second.</p>
+<p>The stopwatch supports pause and resume, lap times and reset; the countdown lets you set minutes and seconds, pause mid-way, and plays an audible beep when time runs out. Both are driven by the system clock rather than by counting timer ticks, so they stay accurate even if the browser slows down.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>How accurate is the stopwatch?</summary><div class="a">It measures elapsed time with the system clock (millisecond precision) and displays hundredths of a second. Accurate enough for training and everyday timing, though not certified for official sports.</div></details>
+<details><summary>Will the countdown beep if the tab is in the background?</summary><div class="a">The timer keeps tracking correctly using the system clock, but browsers throttle background tabs, so the display may freeze until you return. Keep the tab open for the most reliable alarm.</div></details>
+<details><summary>Do I need to install anything?</summary><div class="a">No — it runs entirely in your browser with no downloads, accounts or permissions. The alarm sound is generated with WebAudio, so no audio files are needed either.</div></details>
+<details><summary>Why does the display update in small steps?</summary><div class="a">The display refreshes about 20 times per second — plenty smooth for reading hundredths of a second while keeping CPU usage low.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function formatTime(ms) {
+  if (ms < 0) { ms = 0; }
+  var cs = Math.round(ms / 10);
+  var m = Math.floor(cs / 6000), s = Math.floor((cs % 6000) / 100), c = cs % 100;
+  function p(n) { return (n < 10 ? "0" : "") + n; }
+  return p(m) + ":" + p(s) + "." + p(c);
+}
+document.addEventListener('DOMContentLoaded', function () {
+function showTab(sw) {
+  FTH.el("swPane").hidden = !sw;
+  FTH.el("cdPane").hidden = sw;
+  FTH.el("tabSw").className = sw ? "btn" : "btn-ghost";
+  FTH.el("tabCd").className = sw ? "btn-ghost" : "btn";
+}
+FTH.el("tabSw").addEventListener("click", function () { showTab(true); });
+FTH.el("tabCd").addEventListener("click", function () { showTab(false); });
+var swTimer = null, swAcc = 0, swT0 = 0, swOn = false, lapN = 0;
+function swElapsed() { return swAcc + (swOn ? Date.now() - swT0 : 0); }
+function swTick() { FTH.el("swDisp").textContent = formatTime(swElapsed()); }
+function swToggle() {
+  if (swOn) {
+    swAcc = swElapsed(); swOn = false;
+    clearInterval(swTimer); swTimer = null;
+    FTH.el("swStart").textContent = "Resume";
+  } else {
+    swT0 = Date.now(); swOn = true;
+    swTimer = setInterval(swTick, 47);
+    FTH.el("swStart").textContent = "Pause";
+  }
+}
+FTH.el("swStart").addEventListener("click", swToggle);
+FTH.el("swLap").addEventListener("click", function () {
+  if (!swOn && swAcc === 0) { return; }
+  lapN++;
+  FTH.el("laps").innerHTML += "<li>Lap " + lapN + " — " + formatTime(swElapsed()) + "</li>";
+});
+FTH.el("swReset").addEventListener("click", function () {
+  if (swTimer) { clearInterval(swTimer); swTimer = null; }
+  swOn = false; swAcc = 0; lapN = 0;
+  FTH.el("swDisp").textContent = formatTime(0);
+  FTH.el("laps").innerHTML = "";
+  FTH.el("swStart").textContent = "Start";
+});
+var cdTimer = null, cdEnd = 0, cdLeft = 0, cdOn = false;
+function cdInputsMs() {
+  var m = Math.max(0, Math.floor(FTH.num("cdMin")) || 0);
+  var s = Math.max(0, Math.min(59, Math.floor(FTH.num("cdSec")) || 0));
+  return (m * 60 + s) * 1000;
+}
+function cdBeep() {
+  try {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    var ctx = new AC();
+    var t = ctx.currentTime;
+    for (var i = 0; i < 3; i++) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = 880;
+      o.start(t + i * 0.35); o.stop(t + i * 0.35 + 0.25);
+    }
+  } catch (e) {}
+}
+function cdTick() {
+  var left = cdEnd - Date.now();
+  if (left <= 0) { cdFinish(); return; }
+  FTH.el("cdDisp").textContent = formatTime(left);
+}
+function cdFinish() {
+  if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+  cdOn = false; cdLeft = 0;
+  FTH.el("cdDisp").textContent = formatTime(0);
+  FTH.el("cdStart").textContent = "Start";
+  cdBeep();
+}
+function cdToggle() {
+  if (cdOn) {
+    cdLeft = cdEnd - Date.now(); cdOn = false;
+    clearInterval(cdTimer); cdTimer = null;
+    FTH.el("cdStart").textContent = "Resume";
+    return;
+  }
+  if (cdLeft <= 0) {
+    cdLeft = cdInputsMs();
+    if (cdLeft <= 0) { return; }
+  }
+  cdEnd = Date.now() + cdLeft;
+  cdOn = true;
+  cdTimer = setInterval(cdTick, 47);
+  FTH.el("cdStart").textContent = "Pause";
+}
+function cdShowIdle() {
+  if (!cdOn && cdLeft === 0) { FTH.el("cdDisp").textContent = formatTime(cdInputsMs()); }
+}
+FTH.el("cdStart").addEventListener("click", cdToggle);
+FTH.el("cdReset").addEventListener("click", function () {
+  if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+  cdOn = false; cdLeft = 0;
+  FTH.el("cdStart").textContent = "Start";
+  FTH.el("cdDisp").textContent = formatTime(cdInputsMs());
+});
+FTH.el("cdMin").addEventListener("change", cdShowIdle);
+FTH.el("cdSec").addEventListener("change", cdShowIdle);
+});
+</script>
+</body>
+</html>

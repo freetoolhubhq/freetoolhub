@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Calculator – Mutual Fund Returns Estimator</title>
+<meta name="description" content="Estimate your mutual fund SIP growth: monthly investment, expected returns and years. See invested amount, gains and projected value instantly, free.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Finance / SIP Calculator</nav>
+<div class="tool-head"><h1>SIP Calculator</h1><p class="lead">Project mutual fund SIP growth: invested amount, gains and total value.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="smonthly">Monthly investment (₹)</label><input id="smonthly" type="number" min="0" step="500" value="10000"></div>
+  <div class="field"><label for="srate">Expected annual return (%)</label><input id="srate" type="number" min="0" max="30" step="0.5" value="12"></div>
+  <div class="field"><label for="syears">Time period (years)</label><input id="syears" type="number" min="1" max="40" step="1" value="10"></div>
+</div>
+<button class="btn" id="scalc" type="button">Calculate SIP Growth</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>A Systematic Investment Plan (SIP) invests a fixed amount in a mutual fund every month, buying more units when markets fall and fewer when they rise — the rupee-cost averaging that has made SIPs India's favourite way to invest in equity. Over long periods, compounding does the heavy lifting.</p>
+<p>Enter your monthly SIP amount, an expected annual return and the investment horizon to project your invested amount, estimated gains and total value. Treat the result as an illustration, not a promise: equity returns vary, and past performance never guarantees future results.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What annual return should I assume for a SIP?</summary><div class="a">Long-term Indian equity funds have delivered roughly 10–14% annualised over long periods, but there is no guarantee. Many planners use 10–12% for equity SIPs and 7–8% for hybrid funds in projections.</div></details>
+<details><summary>Are SIP returns guaranteed?</summary><div class="a">No. A SIP only fixes your investment schedule — the returns depend on market performance. Over 7–10+ years equity SIPs have historically smoothed out volatility, but short-term values can fall.</div></details>
+<details><summary>What is the difference between a SIP and a lump sum?</summary><div class="a">A SIP spreads investment over time, reducing timing risk through rupee-cost averaging. A lump sum invested at a market peak can underperform; a lump sum at a trough can outperform. SIPs suit regular earners.</div></details>
+<details><summary>Are SIP gains taxable in India?</summary><div class="a">Yes. Equity fund gains held over 12 months are long-term capital gains taxed at 12.5% above Rs 1.25 lakh per year; gains under 12 months are taxed at 20%. Debt fund taxation differs.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="emi-calculator.html" data-name="emi calculator work out your monthly loan emi with total interest and payable amount. finance"><div class="ticon">🏦</div><h3>EMI Calculator</h3><p>Work out your monthly loan EMI with total interest and payable amount.</p><span class="go">Use tool →</span></a>
+<a class="card" href="gst-calculator.html" data-name="gst calculator add or strip indian gst (5–28%) with cgst/sgst split on any bill or price. finance"><div class="ticon">🧾</div><h3>GST Calculator</h3><p>Add or strip Indian GST (5–28%) with CGST/SGST split on any bill or price.</p><span class="go">Use tool →</span></a>
+<a class="card" href="fd-calculator.html" data-name="fd calculator estimate fixed deposit maturity value and interest for any indian bank. finance"><div class="ticon">💰</div><h3>FD Calculator</h3><p>Estimate fixed deposit maturity value and interest for any Indian bank.</p><span class="go">Use tool →</span></a>
+<a class="card" href="rd-calculator.html" data-name="rd calculator project rd maturity value, invested amount and interest earned monthly. finance"><div class="ticon">📈</div><h3>RD Calculator</h3><p>Project RD maturity value, invested amount and interest earned monthly.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function sipCalc(monthly, ratePct, years) {
+  var i = ratePct / 100 / 12;
+  var n = 12 * years;
+  var fv = monthly * (Math.pow(1 + i, n) - 1) / i * (1 + i);
+  var invested = monthly * n;
+  return { invested: invested, gains: fv - invested, total: fv };
+}
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('scalc').addEventListener('click', function() {
+  var m = FTH.num('smonthly');
+  var rate = FTH.num('srate');
+  var yrs = FTH.num('syears');
+  if (m <= 0 || yrs <= 0) { FTH.setResult('<p class="note">Please enter a monthly investment and period greater than zero.</p>'); return; }
+  var s = sipCalc(m, rate, yrs);
+  FTH.setResult('<div class="rbig">' + FTH.inr(s.total) + '</div>' +
+    '<div class="rrow"><span class="k">Invested amount</span><span class="v">' + FTH.inr(s.invested) + '</span></div>' +
+    '<div class="rrow"><span class="k">Estimated gains</span><span class="v">' + FTH.inr(s.gains) + '</span></div>' +
+    '<p class="note">Projection at ' + rate + '% p.a., not a guarantee. Mutual fund investments are subject to market risks.</p>');
+});
+});
+</script>
+</body>
+</html>

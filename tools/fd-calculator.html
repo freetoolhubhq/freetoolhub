@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FD Calculator – Fixed Deposit Maturity Online</title>
+<meta name="description" content="Calculate fixed deposit maturity value and interest earned with yearly, half-yearly, quarterly or monthly compounding. Free FD calculator for Indian banks.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Finance / FD Calculator</nav>
+<div class="tool-head"><h1>FD Calculator</h1><p class="lead">Estimate fixed deposit maturity value and interest for any Indian bank.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="fprincipal">Deposit amount (₹)</label><input id="fprincipal" type="number" min="0" step="1000" value="100000"></div>
+  <div class="field"><label for="frate">Annual interest rate (%)</label><input id="frate" type="number" min="0" max="20" step="0.1" value="7"></div>
+  <div class="field"><label for="fyears">Tenure (years)</label><input id="fyears" type="number" min="0.25" max="30" step="0.25" value="5"></div>
+</div>
+<div class="frow">
+  <div class="field"><label for="ffreq">Compounding</label><select id="ffreq"><option value="1">Yearly</option><option value="2">Half-yearly</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option></select></div>
+</div>
+<button class="btn" id="fcalc" type="button">Calculate Maturity</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Fixed deposits remain the most popular safe investment in India — offered by banks, NBFCs and the post office, with senior citizens typically earning an extra 0.25–0.50% interest. Your money grows through compounding: interest earned each period starts earning interest itself.</p>
+<p>Most Indian banks compound FD interest quarterly, which is why quarterly is the default here. Enter your deposit amount, the annual rate quoted by your bank, and the tenure to see the maturity value and the total interest you will earn — handy for comparing offers from SBI, HDFC, ICICI and small finance banks.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What does compounding frequency mean for an FD?</summary><div class="a">It is how often earned interest is added to your principal. Quarterly compounding adds interest four times a year, so each quarter's interest earns interest in the next — giving a slightly higher return than yearly compounding at the same rate.</div></details>
+<details><summary>Which compounding do Indian banks use?</summary><div class="a">Most Indian banks compound FD interest quarterly by default. Some NBFCs and company deposits use yearly or half-yearly compounding — always check the fine print before comparing rates.</div></details>
+<details><summary>Is FD interest taxable in India?</summary><div class="a">Yes. FD interest is added to your income and taxed at your slab rate. Banks deduct 10% TDS if your interest exceeds Rs 40,000 in a year (Rs 50,000 for senior citizens).</div></details>
+<details><summary>Why does quarterly compounding give more than yearly?</summary><div class="a">Because interest starts earning interest sooner. The difference is small over one year but becomes meaningful over 5–10 year tenures.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="emi-calculator.html" data-name="emi calculator work out your monthly loan emi with total interest and payable amount. finance"><div class="ticon">🏦</div><h3>EMI Calculator</h3><p>Work out your monthly loan EMI with total interest and payable amount.</p><span class="go">Use tool →</span></a>
+<a class="card" href="gst-calculator.html" data-name="gst calculator add or strip indian gst (5–28%) with cgst/sgst split on any bill or price. finance"><div class="ticon">🧾</div><h3>GST Calculator</h3><p>Add or strip Indian GST (5–28%) with CGST/SGST split on any bill or price.</p><span class="go">Use tool →</span></a>
+<a class="card" href="rd-calculator.html" data-name="rd calculator project rd maturity value, invested amount and interest earned monthly. finance"><div class="ticon">📈</div><h3>RD Calculator</h3><p>Project RD maturity value, invested amount and interest earned monthly.</p><span class="go">Use tool →</span></a>
+<a class="card" href="sip-calculator.html" data-name="sip calculator project mutual fund sip growth: invested amount, gains and total value. finance"><div class="ticon">📊</div><h3>SIP Calculator</h3><p>Project mutual fund SIP growth: invested amount, gains and total value.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function fdCalc(P, ratePct, years, freq) {
+  var r = ratePct / 100;
+  var amount = P * Math.pow(1 + r / freq, freq * years);
+  return { amount: amount, interest: amount - P };
+}
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('fcalc').addEventListener('click', function() {
+  var P = FTH.num('fprincipal');
+  var rate = FTH.num('frate');
+  var yrs = FTH.num('fyears');
+  var freq = FTH.num('ffreq');
+  if (P <= 0 || yrs <= 0) { FTH.setResult('<p class="note">Please enter a deposit amount and tenure greater than zero.</p>'); return; }
+  var fd = fdCalc(P, rate, yrs, freq);
+  FTH.setResult('<div class="rbig">' + FTH.inr(fd.amount) + '</div>' +
+    '<div class="rrow"><span class="k">Invested amount</span><span class="v">' + FTH.inr(P) + '</span></div>' +
+    '<div class="rrow"><span class="k">Interest earned</span><span class="v">' + FTH.inr(fd.interest) + '</span></div>' +
+    '<p class="note">Maturity value at ' + rate + '% p.a. compounded per the selected frequency, before tax and TDS.</p>');
+});
+});
+</script>
+</body>
+</html>

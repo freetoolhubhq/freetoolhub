@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Calculator India – Inclusive &amp; Exclusive</title>
+<meta name="description" content="Free GST calculator for India: add or remove 5%, 12%, 18% or 28% GST, split CGST/SGST and find the base price instantly. Ideal for billing and shopping.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Finance / GST Calculator</nav>
+<div class="tool-head"><h1>GST Calculator</h1><p class="lead">Add or strip Indian GST (5–28%) with CGST/SGST split on any bill or price.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow cols3">
+  <div class="field"><label for="gamount">Amount (₹)</label><input id="gamount" type="number" min="0" step="1" value="1000"></div>
+  <div class="field"><label for="gslab">GST slab</label><select id="gslab"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div>
+  <div class="field"><label for="gmode">Amount is</label><select id="gmode"><option value="exclusive" selected>GST-exclusive (add tax)</option><option value="inclusive">GST-inclusive (remove tax)</option></select></div>
+</div>
+<button class="btn" id="gcalc" type="button">Calculate GST</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>GST (Goods and Services Tax) is India's unified indirect tax, levied in four main slabs — 5%, 12%, 18% and 28% — depending on the product or service. Prices you see in shops are usually GST-inclusive, while business quotations are often quoted GST-exclusive.</p>
+<p>This calculator works both ways: add GST to a base price to get the selling price, or strip GST out of an inclusive price to recover the base amount. For intra-state sales it also splits the tax equally into CGST and SGST, matching how Indian invoices are raised.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What are the GST slabs in India?</summary><div class="a">The main GST slabs are 5%, 12%, 18% and 28%. Essentials like food items attract 5% or nil, most goods and services fall under 12% or 18%, and luxury or sin goods attract 28% plus cess.</div></details>
+<details><summary>What is the difference between GST-inclusive and exclusive prices?</summary><div class="a">An exclusive price does not include GST — tax is added on top. An inclusive price already contains GST — you divide by (1 + rate) to recover the base price. Shop MRPs are inclusive; B2B quotes are usually exclusive.</div></details>
+<details><summary>What are CGST and SGST?</summary><div class="a">On sales within a state, GST is split equally between the Centre (CGST) and the State (SGST). So 18% GST becomes 9% CGST + 9% SGST on the invoice. Inter-state sales use IGST instead.</div></details>
+<details><summary>Is GST the same everywhere in India?</summary><div class="a">Yes — GST rates are set nationally by the GST Council, so the same product attracts the same rate in every state, unlike the old VAT system.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="emi-calculator.html" data-name="emi calculator work out your monthly loan emi with total interest and payable amount. finance"><div class="ticon">🏦</div><h3>EMI Calculator</h3><p>Work out your monthly loan EMI with total interest and payable amount.</p><span class="go">Use tool →</span></a>
+<a class="card" href="fd-calculator.html" data-name="fd calculator estimate fixed deposit maturity value and interest for any indian bank. finance"><div class="ticon">💰</div><h3>FD Calculator</h3><p>Estimate fixed deposit maturity value and interest for any Indian bank.</p><span class="go">Use tool →</span></a>
+<a class="card" href="rd-calculator.html" data-name="rd calculator project rd maturity value, invested amount and interest earned monthly. finance"><div class="ticon">📈</div><h3>RD Calculator</h3><p>Project RD maturity value, invested amount and interest earned monthly.</p><span class="go">Use tool →</span></a>
+<a class="card" href="sip-calculator.html" data-name="sip calculator project mutual fund sip growth: invested amount, gains and total value. finance"><div class="ticon">📊</div><h3>SIP Calculator</h3><p>Project mutual fund SIP growth: invested amount, gains and total value.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function gstCalc(amount, ratePct, mode) {
+  if (mode === "exclusive") {
+    var tax = amount * ratePct / 100;
+    return { base: amount, tax: tax, total: amount + tax };
+  }
+  var base = amount / (1 + ratePct / 100);
+  return { base: base, tax: amount - base, total: amount };
+}
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('gcalc').addEventListener('click', function() {
+  var amt = FTH.num('gamount');
+  var slab = FTH.num('gslab');
+  var mode = FTH.str('gmode');
+  if (amt <= 0) { FTH.setResult('<p class="note">Please enter an amount greater than zero.</p>'); return; }
+  var g = gstCalc(amt, slab, mode);
+  var half = g.tax / 2;
+  FTH.setResult('<div class="rbig">' + FTH.inr(g.total) + '</div>' +
+    '<div class="rrow"><span class="k">Base amount</span><span class="v">' + FTH.inr(g.base) + '</span></div>' +
+    '<div class="rrow"><span class="k">CGST (' + (slab / 2) + '%)</span><span class="v">' + FTH.inr(half) + '</span></div>' +
+    '<div class="rrow"><span class="k">SGST (' + (slab / 2) + '%)</span><span class="v">' + FTH.inr(half) + '</span></div>' +
+    '<div class="rrow"><span class="k">Total GST (' + slab + '%)</span><span class="v">' + FTH.inr(g.tax) + '</span></div>' +
+    '<p class="note">' + (mode === 'exclusive' ? 'GST added on top of the base price.' : 'Base price recovered from the GST-inclusive price.') + ' Inter-state sales would show IGST instead of CGST + SGST.</p>');
+});
+});
+</script>
+</body>
+</html>

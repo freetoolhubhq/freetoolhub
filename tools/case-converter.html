@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Converter – Change Text Case Online Free</title>
+<meta name="description" content="Convert text to UPPERCASE, lowercase, Title Case, Sentence case or aLtErNaTiNg case instantly. Free, fast and runs in your browser.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / Case Converter</nav>
+<div class="tool-head"><h1>Case Converter</h1><p class="lead">Switch text between UPPERCASE, lowercase, Title Case, Sentence and more.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="field"><label for="cctext">Your text</label><textarea id="cctext" rows="6">Type or paste your text here, then choose a case style.</textarea></div>
+<div class="frow">
+  <div class="field"><button class="btn-ghost" id="ccUpper">UPPERCASE</button></div>
+  <div class="field"><button class="btn-ghost" id="ccLower">lowercase</button></div>
+  <div class="field"><button class="btn-ghost" id="ccTitle">Title Case</button></div>
+  <div class="field"><button class="btn-ghost" id="ccSentence">Sentence case</button></div>
+  <div class="field"><button class="btn-ghost" id="ccAlt">aLtErNaTiNg</button></div>
+  <div class="field"><button class="btn" id="ccCopy">Copy</button></div>
+</div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Pasted text in ALL CAPS from a PDF? A headline that needs proper Title Case? This free case converter fixes text casing in one click: UPPERCASE, lowercase, Title Case, Sentence case, and aLtErNaTiNg case for playful effect. Your text is transformed instantly and stays in the box, ready to copy.</p>
+<p>Title Case capitalises the first letter of every word, while Sentence case lowercases everything first and then capitalises the start of each sentence — ideal for cleaning up pasted content. Like every FreeToolHub tool, conversion happens entirely in your browser; nothing is uploaded.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What does each case style do?</summary><div class="a">UPPERCASE makes every letter capital; lowercase makes every letter small; Title Case capitalises each word; Sentence case capitalises the first letter of each sentence; aLtErNaTiNg case alternates lower and upper letters.</div></details>
+<details><summary>Will it fix my document's formatting?</summary><div class="a">It only changes letter casing — bold, italics, links and other rich formatting are not preserved, since the tool works with plain text.</div></details>
+<details><summary>Does Title Case handle small words like ‘and’?</summary><div class="a">This converter capitalises every word including short ones, which suits most headlines. Formal title-casing rules vary by style guide, so give the result a quick read before publishing.</div></details>
+<details><summary>Is my text sent to a server?</summary><div class="a">No — the conversion runs locally in your browser with JavaScript, so your text never leaves your device.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function toUpperCase2(t) { return t.toUpperCase(); }
+function toLower2(t) { return t.toLowerCase(); }
+function toTitle(t) {
+  return t.toLowerCase().replace(/\b\w+/g, function (w) { return w.charAt(0).toUpperCase() + w.slice(1); });
+}
+function toSentence(t) {
+  return t.toLowerCase().replace(/(^\s*[a-z])|([.!?]\s*[a-z])/g, function (m) { return m.toUpperCase(); });
+}
+function toAlternating(t) {
+  return t.split("").map(function (c, i) { return i % 2 === 1 ? c.toUpperCase() : c.toLowerCase(); }).join("");
+}
+document.addEventListener('DOMContentLoaded', function () {
+function applyCase(fn) { FTH.el('cctext').value = fn(FTH.el('cctext').value); }
+FTH.el('ccUpper').addEventListener('click', function () { applyCase(toUpperCase2); });
+FTH.el('ccLower').addEventListener('click', function () { applyCase(toLower2); });
+FTH.el('ccTitle').addEventListener('click', function () { applyCase(toTitle); });
+FTH.el('ccSentence').addEventListener('click', function () { applyCase(toSentence); });
+FTH.el('ccAlt').addEventListener('click', function () { applyCase(toAlternating); });
+FTH.el('ccCopy').addEventListener('click', function () { FTH.copyText(FTH.el('cctext').value, FTH.el('ccCopy')); });
+});
+</script>
+</body>
+</html>

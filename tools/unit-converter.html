@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Converter – Length, Weight, Temperature</title>
+<meta name="description" content="Convert length, weight and temperature units instantly — km to miles, kg to pounds, Celsius to Fahrenheit. Free, fast and accurate unit converter.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / Unit Converter</nav>
+<div class="tool-head"><h1>Unit Converter</h1><p class="lead">Convert length, weight and temperature units — km to miles, kg to lb, °C to °F.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow cols3">
+  <div class="field"><label for="cat">Category</label><select id="cat"><option>Length</option><option>Weight</option><option>Temperature</option></select></div>
+  <div class="field"><label for="fromU">From</label><select id="fromU"></select></div>
+  <div class="field"><label for="toU">To</label><select id="toU"></select></div>
+</div>
+<div class="frow cols3">
+  <div class="field"><label for="val">Value</label><input id="val" type="number" value="1" step="any"></div>
+  <div class="field"><label>&nbsp;</label><button class="btn" id="uconvert" type="button">Convert</button></div>
+</div>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Whether you are following a recipe in ounces, checking a 5K run in miles, or reading a weather report in Fahrenheit, unit conversion comes up constantly. This tool converts length, weight and temperature between the metric and imperial units people actually use every day.</p>
+<p>Pick a category, enter a value, and choose the units to convert from and to — the result updates instantly as you change anything. Length and weight use exact international conversion factors, and temperature conversions handle the offset formulas between Celsius, Fahrenheit and Kelvin correctly.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>How accurate are the conversions?</summary><div class="a">Length and weight use the internationally defined factors — for example, 1 inch is exactly 2.54 cm and 1 pound is exactly 0.45359237 kg — so results are as precise as your input. Displayed values are rounded to 6 decimal places.</div></details>
+<details><summary>Why does temperature need a different formula?</summary><div class="a">Unlike length or weight, temperature scales do not share a common zero: 0 °C is 32 °F. So conversion is not a simple multiplication — the tool first converts to Celsius, then to the target scale.</div></details>
+<details><summary>What is the difference between a tonne and a ton?</summary><div class="a">This converter uses the metric tonne (1,000 kg). The US short ton is 907.18 kg and the UK long ton is 1,016 kg — neither is included here to avoid confusion.</div></details>
+<details><summary>Does it work offline?</summary><div class="a">Yes. Once the page has loaded, all conversions run locally in your browser with no network requests.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+const lengthFactors = { km: 1000, m: 1, cm: 0.01, mm: 0.001, mi: 1609.344, yd: 0.9144, ft: 0.3048, in: 0.0254 };
+const weightFactors = { kg: 1, g: 0.001, mg: 0.000001, lb: 0.45359237, oz: 0.028349523125, t: 1000 };
+function convertLinear(v, from, to, factors) { return v * factors[from] / factors[to]; }
+function convertTemp(v, from, to) {
+  var c = from === "C" ? v : (from === "F" ? (v - 32) * 5 / 9 : v - 273.15);
+  return to === "C" ? c : (to === "F" ? c * 9 / 5 + 32 : c + 273.15);
+}
+document.addEventListener('DOMContentLoaded', function () {
+var UDEF = {
+  Length: [["km", "Kilometers (km)"], ["m", "Meters (m)"], ["cm", "Centimeters (cm)"], ["mm", "Millimeters (mm)"], ["mi", "Miles (mi)"], ["yd", "Yards (yd)"], ["ft", "Feet (ft)"], ["in", "Inches (in)"]],
+  Weight: [["kg", "Kilograms (kg)"], ["g", "Grams (g)"], ["mg", "Milligrams (mg)"], ["t", "Tonnes (t)"], ["lb", "Pounds (lb)"], ["oz", "Ounces (oz)"]],
+  Temperature: [["C", "Celsius (°C)"], ["F", "Fahrenheit (°F)"], ["K", "Kelvin (K)"]]
+};
+var UDEFAULT = { Length: ["km", "mi"], Weight: ["kg", "lb"], Temperature: ["C", "F"] };
+function fillUnits() {
+  var cat = FTH.str("cat");
+  var defs = UDEF[cat];
+  var opts = defs.map(function (d) { return '<option value="' + d[0] + '">' + d[1] + '</option>'; }).join("");
+  FTH.el("fromU").innerHTML = opts;
+  FTH.el("toU").innerHTML = opts;
+  FTH.el("fromU").value = UDEFAULT[cat][0];
+  FTH.el("toU").value = UDEFAULT[cat][1];
+}
+function doConvert() {
+  var cat = FTH.str("cat");
+  var v = FTH.num("val");
+  if (isNaN(v)) { FTH.setResult('<div class="note">Enter a number to convert.</div>'); return; }
+  var from = FTH.str("fromU"), to = FTH.str("toU"), out;
+  if (cat === "Temperature") { out = convertTemp(v, from, to); }
+  else { out = convertLinear(v, from, to, cat === "Length" ? lengthFactors : weightFactors); }
+  FTH.setResult('<div class="rbig">' + FTH.fmtIN(v, 6) + ' ' + from + ' = ' + FTH.fmtIN(out, 6) + ' ' + to + '</div>');
+}
+FTH.el("cat").addEventListener("change", function () { fillUnits(); doConvert(); });
+FTH.el("val").addEventListener("input", doConvert);
+FTH.el("fromU").addEventListener("change", doConvert);
+FTH.el("toU").addEventListener("change", doConvert);
+FTH.el("uconvert").addEventListener("click", doConvert);
+fillUnits();
+doConvert();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compound Interest Calculator – Growth Estimator</title>
+<meta name="description" content="See how your money grows with compound interest: principal, rate, years and compounding frequency. Free calculator with maturity and interest split.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Finance / Compound Interest Calculator</nav>
+<div class="tool-head"><h1>Compound Interest Calculator</h1><p class="lead">Grow any principal with compound interest across compounding frequencies.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="cprincipal">Principal amount (₹)</label><input id="cprincipal" type="number" min="0" step="1000" value="100000"></div>
+  <div class="field"><label for="crate">Annual interest rate (%)</label><input id="crate" type="number" min="0" max="30" step="0.1" value="8"></div>
+  <div class="field"><label for="cyears">Time period (years)</label><input id="cyears" type="number" min="0.25" max="50" step="0.25" value="10"></div>
+</div>
+<div class="frow">
+  <div class="field"><label for="cfreq">Compounding frequency</label><select id="cfreq"><option value="1" selected>Yearly</option><option value="2">Half-yearly</option><option value="4">Quarterly</option><option value="12">Monthly</option></select></div>
+</div>
+<button class="btn" id="ccalc" type="button">Calculate Growth</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Compound interest means you earn interest not just on your original principal but on all the interest accumulated so far — the snowball effect that makes long-term investing so powerful. It is the same maths behind FD growth, PPF balances and mutual fund projections.</p>
+<p>This calculator shows how a one-time investment grows over time at any compounding frequency — yearly, half-yearly, quarterly or monthly. Try increasing the years to see why starting early matters far more than chasing a slightly higher rate.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What is compound interest?</summary><div class="a">Interest calculated on both the initial principal and the accumulated interest of previous periods. Each compounding period, your balance grows a little faster than the last.</div></details>
+<details><summary>How does compounding frequency affect returns?</summary><div class="a">More frequent compounding means interest starts earning interest sooner. At 8% for 10 years, Rs 1 lakh grows to about Rs 2,15,892 yearly vs Rs 2,21,964 monthly — frequency matters, though rate and time matter more.</div></details>
+<details><summary>What is the difference between compound and simple interest?</summary><div class="a">Simple interest is calculated only on the original principal, so growth is linear. Compound interest grows exponentially because each period's interest joins the principal.</div></details>
+<details><summary>What is the Rule of 72?</summary><div class="a">A quick mental shortcut: divide 72 by your annual rate to estimate the years needed to double your money. At 8%, money doubles in roughly 9 years.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="emi-calculator.html" data-name="emi calculator work out your monthly loan emi with total interest and payable amount. finance"><div class="ticon">🏦</div><h3>EMI Calculator</h3><p>Work out your monthly loan EMI with total interest and payable amount.</p><span class="go">Use tool →</span></a>
+<a class="card" href="gst-calculator.html" data-name="gst calculator add or strip indian gst (5–28%) with cgst/sgst split on any bill or price. finance"><div class="ticon">🧾</div><h3>GST Calculator</h3><p>Add or strip Indian GST (5–28%) with CGST/SGST split on any bill or price.</p><span class="go">Use tool →</span></a>
+<a class="card" href="fd-calculator.html" data-name="fd calculator estimate fixed deposit maturity value and interest for any indian bank. finance"><div class="ticon">💰</div><h3>FD Calculator</h3><p>Estimate fixed deposit maturity value and interest for any Indian bank.</p><span class="go">Use tool →</span></a>
+<a class="card" href="rd-calculator.html" data-name="rd calculator project rd maturity value, invested amount and interest earned monthly. finance"><div class="ticon">📈</div><h3>RD Calculator</h3><p>Project RD maturity value, invested amount and interest earned monthly.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function ciCalc(P, ratePct, years, freq) {
+  var r = ratePct / 100;
+  var amount = P * Math.pow(1 + r / freq, freq * years);
+  return { amount: amount, interest: amount - P };
+}
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('ccalc').addEventListener('click', function() {
+  var P = FTH.num('cprincipal');
+  var rate = FTH.num('crate');
+  var yrs = FTH.num('cyears');
+  var freq = FTH.num('cfreq');
+  if (P <= 0 || yrs <= 0) { FTH.setResult('<p class="note">Please enter a principal and period greater than zero.</p>'); return; }
+  var c = ciCalc(P, rate, yrs, freq);
+  FTH.setResult('<div class="rbig">' + FTH.inr(c.amount) + '</div>' +
+    '<div class="rrow"><span class="k">Principal invested</span><span class="v">' + FTH.inr(P) + '</span></div>' +
+    '<div class="rrow"><span class="k">Interest earned</span><span class="v">' + FTH.inr(c.interest) + '</span></div>' +
+    '<p class="note">At ' + rate + '% p.a. with the selected compounding frequency, before tax.</p>');
+});
+});
+</script>
+</body>
+</html>

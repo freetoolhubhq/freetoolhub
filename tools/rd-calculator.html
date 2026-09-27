@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RD Calculator – Recurring Deposit Returns India</title>
+<meta name="description" content="Estimate your recurring deposit maturity value, total invested and interest earned. Free RD calculator for Indian banks with quarterly compounding.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Finance / RD Calculator</nav>
+<div class="tool-head"><h1>RD Calculator</h1><p class="lead">Project RD maturity value, invested amount and interest earned monthly.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="rdep">Monthly deposit (₹)</label><input id="rdep" type="number" min="0" step="100" value="5000"></div>
+  <div class="field"><label for="rrate">Annual interest rate (%)</label><input id="rrate" type="number" min="0" max="20" step="0.1" value="7"></div>
+  <div class="field"><label for="ryears">Tenure (years)</label><input id="ryears" type="number" min="0.5" max="10" step="0.5" value="5"></div>
+</div>
+<button class="btn" id="rcalc" type="button">Calculate RD Returns</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>A recurring deposit lets you save a fixed sum every month — perfect for salaried earners who want to build a corpus without a lump sum. Indian banks and the post office compound RD interest quarterly, and the rate is usually close to the bank's FD rate for the same tenure.</p>
+<p>Enter your monthly deposit, the annual interest rate and the tenure to see how much you will have invested in total, the maturity value, and the interest earned. It is a useful reality check before committing to a 1, 3 or 5-year RD.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>How is RD interest calculated?</summary><div class="a">Each monthly instalment earns interest from its deposit date, with interest compounded quarterly. The standard formula is M = R x ((1+i)^n - 1) / (1 - (1+i)^(-1/3)), where i is the quarterly rate and n the number of quarters.</div></details>
+<details><summary>What is the minimum RD amount in India?</summary><div class="a">Most banks let you start an RD with as little as Rs 100–500 per month; the post office 5-year RD starts at Rs 100 per month. There is usually no upper limit.</div></details>
+<details><summary>Is RD interest taxable?</summary><div class="a">Yes — RD interest is fully taxable as income from other sources at your slab rate, and TDS applies if it crosses the threshold, just like FD interest.</div></details>
+<details><summary>RD vs SIP — which is better?</summary><div class="a">RDs give guaranteed, fixed returns and suit risk-averse savers. SIPs in mutual funds can deliver higher long-term returns but carry market risk. Many savers use both.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="emi-calculator.html" data-name="emi calculator work out your monthly loan emi with total interest and payable amount. finance"><div class="ticon">🏦</div><h3>EMI Calculator</h3><p>Work out your monthly loan EMI with total interest and payable amount.</p><span class="go">Use tool →</span></a>
+<a class="card" href="gst-calculator.html" data-name="gst calculator add or strip indian gst (5–28%) with cgst/sgst split on any bill or price. finance"><div class="ticon">🧾</div><h3>GST Calculator</h3><p>Add or strip Indian GST (5–28%) with CGST/SGST split on any bill or price.</p><span class="go">Use tool →</span></a>
+<a class="card" href="fd-calculator.html" data-name="fd calculator estimate fixed deposit maturity value and interest for any indian bank. finance"><div class="ticon">💰</div><h3>FD Calculator</h3><p>Estimate fixed deposit maturity value and interest for any Indian bank.</p><span class="go">Use tool →</span></a>
+<a class="card" href="sip-calculator.html" data-name="sip calculator project mutual fund sip growth: invested amount, gains and total value. finance"><div class="ticon">📊</div><h3>SIP Calculator</h3><p>Project mutual fund SIP growth: invested amount, gains and total value.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function rdCalc(monthly, ratePct, years) {
+  var i = ratePct / 100 / 4;
+  var n = 4 * years;
+  var M = monthly * (Math.pow(1 + i, n) - 1) / (1 - Math.pow(1 + i, -1 / 3));
+  var invested = monthly * 12 * years;
+  return { maturity: M, invested: invested, interest: M - invested };
+}
+document.addEventListener('DOMContentLoaded', function () {
+FTH.el('rcalc').addEventListener('click', function() {
+  var dep = FTH.num('rdep');
+  var rate = FTH.num('rrate');
+  var yrs = FTH.num('ryears');
+  if (dep <= 0 || yrs <= 0) { FTH.setResult('<p class="note">Please enter a monthly deposit and tenure greater than zero.</p>'); return; }
+  var rd = rdCalc(dep, rate, yrs);
+  FTH.setResult('<div class="rbig">' + FTH.inr(rd.maturity) + '</div>' +
+    '<div class="rrow"><span class="k">Total invested</span><span class="v">' + FTH.inr(rd.invested) + '</span></div>' +
+    '<div class="rrow"><span class="k">Interest earned</span><span class="v">' + FTH.inr(rd.interest) + '</span></div>' +
+    '<p class="note">Quarterly compounding at ' + rate + '% p.a., before tax. Assumes deposits are made at the start of each month.</p>');
+});
+});
+</script>
+</body>
+</html>

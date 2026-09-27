@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Converter – HEX to RGB to HSL</title>
+<meta name="description" content="Convert colors between HEX, RGB and HSL instantly. Free color converter with live preview — type a color code and get every format at once.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / Color Converter</nav>
+<div class="tool-head"><h1>Color Converter</h1><p class="lead">Convert HEX, RGB and HSL color codes instantly, with a live color preview.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="hex">HEX color <span class="hint">3 or 6 digits</span></label><input id="hex" type="text" value="#2456e6" maxlength="7" spellcheck="false"></div>
+</div>
+<div class="frow cols3">
+  <div class="field"><label for="r">Red (0–255)</label><input id="r" type="number" min="0" max="255" value="36"></div>
+  <div class="field"><label for="g">Green (0–255)</label><input id="g" type="number" min="0" max="255" value="86"></div>
+  <div class="field"><label for="b">Blue (0–255)</label><input id="b" type="number" min="0" max="255" value="230"></div>
+</div>
+<div class="frow">
+  <button class="btn" id="convert" type="button">Convert</button>
+</div>
+<div class="colorprev" id="preview" style="background:#2456e6"></div>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Working with colors on the web means juggling three different notations. HEX codes like #ff0000 are compact and used everywhere in CSS, RGB values like rgb(255, 0, 0) describe how much red, green and blue light to mix, and HSL values like hsl(0, 100%, 50%) describe a color by its hue, saturation and lightness — often the most intuitive way to tweak a shade.</p>
+<p>This converter translates between all three formats instantly as you type, with a live preview swatch so you can see exactly what the color looks like. It accepts both 6-digit HEX codes (#2456e6) and the 3-digit shorthand (#f00), and RGB inputs are clamped to the valid 0–255 range.</p>
+<p>Designers reach for HSL when they want to make a color lighter, darker or more muted without changing its basic hue; developers copy the HEX or RGB output straight into stylesheets, design tools or brand guidelines.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What is the difference between HEX, RGB and HSL?</summary><div class="a">HEX is a compact hexadecimal notation for the same red, green and blue values that RGB spells out as three numbers. HSL instead describes a color by hue (position on the color wheel, 0–360 degrees), saturation (how vivid it is) and lightness (how close to black or white). All three describe the exact same color — they are just different ways of writing it.</div></details>
+<details><summary>Can I use 3-digit HEX codes?</summary><div class="a">Yes. A 3-digit code like #f80 is expanded automatically to its 6-digit form (#ff8800), following the same rule browsers use in CSS.</div></details>
+<details><summary>Why would I use HSL instead of RGB?</summary><div class="a">HSL makes it easy to create variations of a color: keep the hue fixed and adjust lightness for tints and shades, or lower saturation for muted tones. With RGB you would have to guess how the three channels interact.</div></details>
+<details><summary>Are the conversions exact?</summary><div class="a">Conversions between HEX and RGB are exact. RGB to HSL rounds hue to whole degrees and saturation/lightness to whole percentages, which can shift a color by less than one RGB step — invisible to the eye.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function hexToRgb(hex) {
+  var h = String(hex).trim().replace(/^#/, "");
+  if (h.length === 3) { h = h.charAt(0) + h.charAt(0) + h.charAt(1) + h.charAt(1) + h.charAt(2) + h.charAt(2); }
+  if (!/^[0-9a-fA-F]{6}$/.test(h)) { return null; }
+  return { r: parseInt(h.slice(0, 2), 16), g: parseInt(h.slice(2, 4), 16), b: parseInt(h.slice(4, 6), 16) };
+}
+function rgbToHex(r, g, b) {
+  function ch(n) { n = Math.max(0, Math.min(255, Math.round(n))); var s = n.toString(16); return s.length === 1 ? "0" + s : s; }
+  return "#" + ch(r) + ch(g) + ch(b);
+}
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  var h = 0, s = 0, l = (mx + mn) / 2;
+  if (mx !== mn) {
+    var d = mx - mn;
+    s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
+    if (mx === r) { h = (g - b) / d + (g < b ? 6 : 0); }
+    else if (mx === g) { h = (b - r) / d + 2; }
+    else { h = (r - g) / d + 4; }
+    h *= 60;
+  }
+  return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+function hslToRgb(h, s, l) {
+  h = ((h % 360) + 360) % 360;
+  s = Math.max(0, Math.min(100, s)) / 100;
+  l = Math.max(0, Math.min(100, l)) / 100;
+  function f(n) { var k = (n + h / 30) % 12; var a = s * Math.min(l, 1 - l); return l - a * Math.max(-1, Math.min(k - 3, Math.min(9 - k, 1))); }
+  return { r: Math.round(f(0) * 255), g: Math.round(f(8) * 255), b: Math.round(f(4) * 255) };
+}
+function rgbStr(hex) { var c = hexToRgb(hex); return c ? c.r + ", " + c.g + ", " + c.b : ""; }
+function hslStr(hex) { var c = hexToRgb(hex); if (!c) { return ""; } var t = rgbToHsl(c.r, c.g, c.b); return t.h + ", " + t.s + "%, " + t.l + "%"; }
+document.addEventListener('DOMContentLoaded', function () {
+var prevEl = FTH.el("preview");
+function clamp255(n) { if (isNaN(n)) { return 0; } return Math.max(0, Math.min(255, Math.round(n))); }
+function showColor(r, g, b) {
+  var hex = rgbToHex(r, g, b);
+  var hsl = rgbToHsl(r, g, b);
+  prevEl.style.backgroundColor = hex;
+  FTH.el("hex").value = hex;
+  FTH.el("r").value = r;
+  FTH.el("g").value = g;
+  FTH.el("b").value = b;
+  FTH.setResult(
+    '<div class="rrow"><span class="k">HEX</span><span class="v">' + hex + '</span></div>' +
+    '<div class="rrow"><span class="k">RGB</span><span class="v">' + r + ', ' + g + ', ' + b + '</span></div>' +
+    '<div class="rrow"><span class="k">HSL</span><span class="v">' + hsl.h + ', ' + hsl.s + '%, ' + hsl.l + '%</span></div>'
+  );
+}
+function fromHex() {
+  var c = hexToRgb(FTH.str("hex"));
+  if (c) { showColor(c.r, c.g, c.b); }
+  else { FTH.setResult('<div class="note">That HEX value is not valid. Use 3 or 6 hex digits, e.g. #f00 or #ff0000.</div>'); }
+}
+function fromRgb() {
+  showColor(clamp255(FTH.num("r")), clamp255(FTH.num("g")), clamp255(FTH.num("b")));
+}
+FTH.el("hex").addEventListener("input", fromHex);
+FTH.el("r").addEventListener("input", fromRgb);
+FTH.el("g").addEventListener("input", fromRgb);
+FTH.el("b").addEventListener("input", fromRgb);
+FTH.el("convert").addEventListener("click", fromHex);
+fromHex();
+});
+</script>
+</body>
+</html>

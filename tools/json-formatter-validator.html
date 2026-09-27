@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON Formatter &amp; Validator – Format JSON Online</title>
+<meta name="description" content="Validate and format JSON online for free. Pretty-print with 2 or 4 space indent, minify in one click, and spot syntax errors instantly.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / JSON Formatter &amp; Validator</nav>
+<div class="tool-head"><h1>JSON Formatter &amp; Validator</h1><p class="lead">Validate, pretty-print and minify JSON with clear, helpful error messages.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="field"><label for="jsontext">JSON input</label><textarea id="jsontext" rows="8" spellcheck="false">{
+  "name": "FreeToolHub",
+  "tools": 120,
+  "free": true
+}</textarea></div>
+<div class="frow">
+  <div class="field"><label for="jsonindent">Indent</label><select id="jsonindent"><option value="2" selected>2 spaces</option><option value="4">4 spaces</option></select></div>
+</div>
+<div class="frow">
+  <div class="field"><button class="btn" id="jsonfmt">Format</button></div>
+  <div class="field"><button class="btn-ghost" id="jsonmin">Minify</button></div>
+  <div class="field"><button class="btn-ghost" id="jsoncopy">Copy</button></div>
+</div>
+<div class="out" id="jsonout"></div>
+<div class="note" id="jsonerr" hidden style="color:#b3261e"></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Debugging an API response or a config file? Paste your JSON below and this free validator will check it instantly. Valid JSON gets pretty-printed with your choice of 2- or 4-space indentation; invalid JSON gets a clear error message pointing at the problem — no more guessing where the missing comma is.</p>
+<p>The Minify button strips all unnecessary whitespace for production use, and Copy grabs the result in one click. All parsing happens locally in your browser, so sensitive API payloads and config files are never uploaded to any server.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What are the most common JSON errors?</summary><div class="a">Trailing commas after the last item, single quotes instead of double quotes, unquoted property names, and comments — none of these are valid JSON, and this tool flags each one with its position.</div></details>
+<details><summary>What is the difference between Format and Minify?</summary><div class="a">Format (pretty-print) adds line breaks and indentation so humans can read the JSON; Minify removes all optional whitespace so the JSON is as small as possible for sending over the network.</div></details>
+<details><summary>Why does valid-looking JSON sometimes fail elsewhere?</summary><div class="a">Strict parsers reject duplicate keys, numbers with leading zeros, and trailing data after the value. If our validator passes it, any spec-compliant parser should too.</div></details>
+<details><summary>Is my JSON data uploaded?</summary><div class="a">No. Validation and formatting run entirely in your browser with the built-in JSON parser — your data never leaves your device.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function formatJson(text, indent) {
+  try {
+    return { ok: true, pretty: JSON.stringify(JSON.parse(text), null, indent) };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+function minifyJson(text) {
+  try {
+    return { ok: true, pretty: JSON.stringify(JSON.parse(text)) };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+document.addEventListener('DOMContentLoaded', function () {
+function showJson(r) {
+  var out = FTH.el('jsonout');
+  var err = FTH.el('jsonerr');
+  if (r.ok) { err.hidden = true; out.textContent = r.pretty; }
+  else { out.textContent = ''; err.hidden = false; err.textContent = 'Invalid JSON: ' + r.error; }
+}
+FTH.el('jsonfmt').addEventListener('click', function () { showJson(formatJson(FTH.el('jsontext').value, parseInt(FTH.el('jsonindent').value, 10))); });
+FTH.el('jsonmin').addEventListener('click', function () { showJson(minifyJson(FTH.el('jsontext').value)); });
+FTH.el('jsoncopy').addEventListener('click', function () { FTH.copyText(FTH.el('jsonout').textContent, FTH.el('jsoncopy')); });
+showJson(formatJson(FTH.el('jsontext').value, 2));
+});
+</script>
+</body>
+</html>

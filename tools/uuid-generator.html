@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UUID Generator – Random v4 UUIDs</title>
+<meta name="description" content="Generate random UUID v4 identifiers instantly. Create 1, 5 or 10 at a time and copy them all with one click — free online UUID generator.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / UUID Generator</nav>
+<div class="tool-head"><h1>UUID Generator</h1><p class="lead">Generate random UUID v4 identifiers — one or many — and copy them in one click.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="cnt">How many</label><select id="cnt"><option value="1">1</option><option value="5">5</option><option value="10">10</option></select></div>
+</div>
+<div class="frow">
+  <button class="btn" id="gen" type="button">Generate UUID</button>
+  <button class="btn-ghost" id="copyall" type="button">Copy All</button>
+</div>
+<div class="out" id="list"></div>
+<p class="note">Each UUID is a random version-4 identifier, generated locally in your browser.</p>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>A UUID (universally unique identifier) is a 128-bit label written as 32 hexadecimal digits in five groups, like 550e8400-e29b-41d4-a716-446655440000. They are the standard way to generate IDs that will not collide — for database rows, API keys, session tokens and filenames.</p>
+<p>This generator creates version-4 UUIDs, where 122 of the 128 bits are random. Generate one, five or ten at a time and copy them all with a single click. Everything happens locally in your browser, so the IDs are never sent anywhere.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>What does version 4 mean?</summary><div class="a">UUID version 4 means the identifier is generated from random numbers, with a few fixed bits marking the version and variant. Version 1 instead embeds a timestamp and MAC address, which can leak information — v4 is the safer default.</div></details>
+<details><summary>Are generated UUIDs guaranteed unique?</summary><div class="a">Not mathematically guaranteed, but with 122 random bits the chance of a collision is astronomically small — you could generate billions per second for years without expecting a duplicate.</div></details>
+<details><summary>Is it safe to use these as passwords or tokens?</summary><div class="a">They are fine as non-guessable identifiers, but for security tokens prefer your platform's cryptographic random generator. This tool uses the browser's Math.random, which is not cryptographically secure.</div></details>
+<details><summary>Do the UUIDs leave my computer?</summary><div class="a">No. Generation and copying happen entirely in your browser; nothing is uploaded or logged.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function uuidGen() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = Math.floor(Math.random() * 16);
+    var v = c === "x" ? r : (r & 3 | 8);
+    return v.toString(16);
+  });
+}
+document.addEventListener('DOMContentLoaded', function () {
+function renderUuids() {
+  var n = parseInt(FTH.str("cnt"), 10) || 1;
+  var arr = [];
+  for (var i = 0; i < n; i++) { arr.push(uuidGen()); }
+  FTH.el("list").textContent = arr.join("\n");
+}
+FTH.el("gen").addEventListener("click", renderUuids);
+FTH.el("cnt").addEventListener("change", renderUuids);
+FTH.el("copyall").addEventListener("click", function () { FTH.copyText(FTH.el("list").textContent, FTH.el("copyall")); });
+renderUuids();
+});
+</script>
+</body>
+</html>

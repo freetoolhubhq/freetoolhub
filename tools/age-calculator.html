@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator – Calculate Your Exact Age</title>
+<meta name="description" content="Find your exact age in years, months and days with our free age calculator. Enter your birth date and see total days and months too.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / Age Calculator</nav>
+<div class="tool-head"><h1>Age Calculator</h1><p class="lead">Find your exact age in years, months and days — plus total days lived.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow">
+  <div class="field"><label for="dob">Date of birth</label><input type="date" id="dob" value="1990-06-15"></div>
+  <div class="field"><label for="asof">Calculate age as of <span class="hint">defaults to today</span></label><input type="date" id="asof"></div>
+</div>
+<button class="btn" id="agego">Calculate Age</button>
+<div class="result" id="result" hidden></div>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>Birthdays tell you another year has passed, but they don't tell you exactly how old you are down to the day. Our free age calculator does the maths for you: enter your date of birth, pick the date you want to calculate against, and get your precise age in years, months and days — along with the total number of months and days you have been alive.</p>
+<p>It is useful for far more than curiosity. Parents use it to check a child's exact age for school admissions, travellers use it for visa forms that ask for age in years and months, and planners use it for retirement and insurance calculations. Everything runs instantly in your browser, and no personal data ever leaves your device.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>How is my age calculated?</summary><div class="a">We subtract your birth date from the target date using standard calendar borrowing: if the day or month of the target date is smaller, we borrow from the month or year, just like manual date arithmetic. Leap years are handled automatically.</div></details>
+<details><summary>What is the ‘as of’ date for?</summary><div class="a">It defaults to today, but you can set any past or future date — for example, to find out how old you will be on a wedding day, or how old someone was on a historical date.</div></details>
+<details><summary>What if I was born on 29 February?</summary><div class="a">Leap-day birthdays are handled naturally: the calculator counts the real number of days between the two dates, so your age is always correct even across leap years.</div></details>
+<details><summary>Is my date of birth stored anywhere?</summary><div class="a">No. The calculation happens entirely in your browser with JavaScript — nothing is sent to a server or saved.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+<a class="card" href="word-counter.html" data-name="word counter count words, characters, sentences and lines live as you type — free tool. everyday"><div class="ticon">🔤</div><h3>Word Counter</h3><p>Count words, characters, sentences and lines live as you type — free tool.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function ageCalc(dobISO, asOfISO) {
+  var dob = new Date(dobISO + "T00:00:00");
+  var asOf = new Date(asOfISO + "T00:00:00");
+  var years = asOf.getFullYear() - dob.getFullYear();
+  var months = asOf.getMonth() - dob.getMonth();
+  var days = asOf.getDate() - dob.getDate();
+  if (days < 0) {
+    months -= 1;
+    days += new Date(asOf.getFullYear(), asOf.getMonth(), 0).getDate();
+  }
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+  var totalDays = Math.round((asOf.getTime() - dob.getTime()) / 86400000);
+  return { years: years, months: months, days: days, totalDays: totalDays };
+}
+document.addEventListener('DOMContentLoaded', function () {
+var _t = new Date();
+var _today = _t.getFullYear() + '-' + String(_t.getMonth() + 1).padStart(2, '0') + '-' + String(_t.getDate()).padStart(2, '0');
+FTH.el('asof').value = _today;
+FTH.el('agego').addEventListener('click', function () {
+  var dob = FTH.str('dob');
+  var asof = FTH.str('asof') || _today;
+  if (!dob) { FTH.setResult('<div class="note">Please enter your date of birth.</div>'); return; }
+  if (asof < dob) { FTH.setResult('<div class="note">The "as of" date must be after the date of birth.</div>'); return; }
+  var a = ageCalc(dob, asof);
+  var totalMonths = a.years * 12 + a.months;
+  FTH.setResult('<div class="rbig">' + a.years + ' years, ' + a.months + ' months, ' + a.days + ' days</div>' +
+    '<div class="rrow"><span class="k">Total months</span><span class="v">' + FTH.fmtIN(totalMonths, 0) + '</span></div>' +
+    '<div class="rrow"><span class="k">Total days</span><span class="v">' + FTH.fmtIN(a.totalDays, 0) + '</span></div>');
+});
+FTH.el('agego').click();
+});
+</script>
+</body>
+</html>

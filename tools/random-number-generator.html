@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Number Generator – Pick a Number</title>
+<meta name="description" content="Generate random numbers between any minimum and maximum — one or up to 100 at a time. Free random number generator for draws, games and picks.">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="../index.html">Free<span>Tool</span>Hub</a>
+<nav class="nav"><a href="../index.html">Home</a><a href="../index.html#finance">Finance</a><a href="../index.html#everyday">Everyday</a></nav>
+</div></header>
+<main class="wrap">
+<nav class="crumb"><a href="../index.html">Home</a> / Everyday / Random Number Generator</nav>
+<div class="tool-head"><h1>Random Number Generator</h1><p class="lead">Generate random numbers in any range — perfect for draws, games and decisions.</p></div>
+<!-- ADSENSE: paste ad unit here -->
+<div class="toolbox">
+<div class="frow cols3">
+  <div class="field"><label for="mn">Minimum</label><input id="mn" type="number" value="1"></div>
+  <div class="field"><label for="mx">Maximum</label><input id="mx" type="number" value="100"></div>
+  <div class="field"><label for="cnt5">Count <span class="hint">max 100</span></label><input id="cnt5" type="number" value="1" min="1" max="100"></div>
+</div>
+<div class="frow">
+  <button class="btn" id="rgen" type="button">Generate</button>
+</div>
+<div class="out" id="rlist"></div>
+<p class="note">Numbers are drawn with your browser's built-in random generator (Math.random) — fair for games and draws, not for cryptography or lotteries.</p>
+</div>
+<!-- ADSENSE: paste ad unit here -->
+<section class="prose">
+<h2>About this tool</h2>
+<p>From picking a raffle winner to deciding who goes first in a board game, a quick random number settles it fairly. Enter a minimum and maximum, choose how many numbers you want (up to 100), and hit Generate.</p>
+<p>Both endpoints are included — a range of 1 to 100 can produce 1 or 100. Numbers are drawn with your browser's built-in random generator, which is perfectly fair for games, draws and everyday decisions.</p>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>Are the numbers truly random?</summary><div class="a">They come from your browser's Math.random, a pseudorandom generator that is statistically uniform and fine for games and draws. It is not cryptographically secure, so do not use it for passwords, encryption keys or real-money lotteries.</div></details>
+<details><summary>Can the minimum or maximum appear?</summary><div class="a">Yes — the range is inclusive on both ends.</div></details>
+<details><summary>Can numbers repeat?</summary><div class="a">Yes. Each number is drawn independently, so duplicates are possible — especially with a small range and a large count.</div></details>
+<details><summary>Does it work offline?</summary><div class="a">Yes — once the page has loaded, everything runs locally in your browser.</div></details>
+</div>
+</section>
+<!-- ADSENSE: paste ad unit here -->
+<section class="related"><h2>Related tools</h2><div class="cards">
+<a class="card" href="age-calculator.html" data-name="age calculator find your exact age in years, months and days — plus total days lived. everyday"><div class="ticon">🎂</div><h3>Age Calculator</h3><p>Find your exact age in years, months and days — plus total days lived.</p><span class="go">Use tool →</span></a>
+<a class="card" href="bmi-calculator.html" data-name="bmi calculator check your body mass index in seconds and see your healthy weight range. everyday"><div class="ticon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index in seconds and see your healthy weight range.</p><span class="go">Use tool →</span></a>
+<a class="card" href="qr-code-generator.html" data-name="qr code generator turn any link or text into a scannable qr code instantly — free, no sign-up. everyday"><div class="ticon">🔳</div><h3>QR Code Generator</h3><p>Turn any link or text into a scannable QR code instantly — free, no sign-up.</p><span class="go">Use tool →</span></a>
+<a class="card" href="password-generator.html" data-name="password generator generate strong random passwords with letters, numbers and symbols — free. everyday"><div class="ticon">🔐</div><h3>Password Generator</h3><p>Generate strong random passwords with letters, numbers and symbols — free.</p><span class="go">Use tool →</span></a>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div><strong style="color:#fff">FreeToolHub</strong> — Free Online Tools for Everyday India.</div>
+<div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="index.html#finance">Finance tools</a> &nbsp;·&nbsp; <a href="index.html#everyday">Everyday tools</a></div>
+</div><p class="disclaimer">Calculations are estimates for general information only and are not financial, tax or medical advice. Tax rules change with each Budget — verify current provisions on incometax.gov.in for your own situation.</p></footer>
+<script src="../assets/app.js"></script>
+<script>
+function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+document.addEventListener('DOMContentLoaded', function () {
+function doRandom() {
+  var mn = Math.floor(FTH.num("mn")), mx = Math.floor(FTH.num("mx"));
+  var n = Math.floor(FTH.num("cnt5"));
+  if (isNaN(mn) || isNaN(mx)) { FTH.el("rlist").textContent = "Enter a minimum and a maximum."; return; }
+  if (mn > mx) { FTH.el("rlist").textContent = "Minimum must be less than or equal to maximum."; return; }
+  if (isNaN(n) || n < 1) { n = 1; }
+  if (n > 100) { n = 100; }
+  var arr = [];
+  for (var i = 0; i < n; i++) { arr.push(randomInt(mn, mx)); }
+  FTH.el("rlist").textContent = arr.join(", ");
+}
+FTH.el("rgen").addEventListener("click", doRandom);
+doRandom();
+});
+</script>
+</body>
+</html>
