@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const BASE = 'https://bnaiem67-web.github.io/freetoolhub/';   // <-- update to the real GitHub Pages URL after repo creation
+const BASE = 'https://freetoolhubhq.github.io/freetoolhub/';   // <-- update to the real GitHub Pages URL after repo creation
 const TODAY = '2026-09-27';
 
 const dataFiles = ['data-finance.js', 'data-everyday1.js', 'data-everyday2.js'];
